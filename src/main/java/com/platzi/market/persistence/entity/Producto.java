@@ -25,6 +25,9 @@ public class Producto {
     @Column(length = 45)
     private String nombre;
 
+    @Column(name = "id_categoria")
+    private Integer idCategoria;
+
     @Column(name = "codigo_barras", length = 150)
     private String codigoBarras;
 

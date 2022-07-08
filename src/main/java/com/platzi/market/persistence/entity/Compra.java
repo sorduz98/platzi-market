@@ -29,7 +29,7 @@ public class Compra {
     private LocalDateTime fecha;
 
     @Column(name = "medio_pago")
-    private Character medioPago;
+    private String medioPago;
 
     @Column(length = 300)
     private Integer comentario;
