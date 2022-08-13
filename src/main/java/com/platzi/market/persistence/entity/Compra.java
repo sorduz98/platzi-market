@@ -27,7 +27,7 @@ public class Compra {
     private Character medioPago;
 
     @Column(length = 300)
-    private Integer comentario;
+    private String comentario;
 
     @Column
     private Character estado;
