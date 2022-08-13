@@ -18,7 +18,6 @@ import java.util.List;
 @Setter
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 20, nullable = false)
     private String id;
 
@@ -29,7 +28,7 @@ public class Cliente {
     private String apellidos;
 
     @Column
-    private Integer celular;
+    private Long celular;
 
     @Column(length = 80)
     private String direccion;
@@ -37,6 +36,6 @@ public class Cliente {
     @Column(name = "correo_electronico", length = 70)
     private String correoElectronico;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<Compra> compras;
+//    @OneToMany(mappedBy = "cliente")
+//    private List<Compra> compras;
 }

@@ -37,7 +37,7 @@ public class Producto {
     @Column(name = "cantidad_stock", nullable = false)
     private Integer cantidadStock;
 
-    @Column()
+    @Column
     private Boolean estado;
 
     @ManyToOne
