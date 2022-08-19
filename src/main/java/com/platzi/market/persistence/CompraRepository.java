@@ -22,9 +22,6 @@ public class CompraRepository implements PurchaseRepository {
 
     @Override
     public List<Purchase> getAll() {
-        System.out.println("##### Lista de compras: ");
-        List<Compra> compras =  (List<Compra>) compraCrudRepository.findAll();
-        System.out.println(compras.toString());
         return mapper.toPurchases((List<Compra>) compraCrudRepository.findAll());
     }
 

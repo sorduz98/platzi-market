@@ -2,12 +2,14 @@ package com.platzi.market.web.controller;
 
 import com.platzi.market.domain.Purchase;
 import com.platzi.market.persistence.CompraRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Purchase Controller", description = "This controller defines all endpoints used to get product data")
 @RestController
 @RequestMapping("purchases")
 public class PurchaseController {
