@@ -3,7 +3,9 @@ package com.platzi.market.web.controller;
 import com.platzi.market.domain.Product;
 import com.platzi.market.domain.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +25,15 @@ public class ProductController {
 
     @Operation(
             summary = "Get all supermarket products",
-            description = "Get all supermarket products, it requires an auth token to perform operation"
+            description = "Get all supermarket products, it requires an auth token to perform operation",
+            security = { @SecurityRequirement(name = "bearer-key") }
     )
     @GetMapping("")
-    public ResponseEntity<List<Product>> getAll() {
+    public ResponseEntity<List<Product>> getAll(@RequestHeader HttpHeaders headers) {
         try {
+            List<String> authorization = headers.get("Authorization");
+            System.out.println("Authorization token is: ");
+            System.out.println(authorization.toString());
             return new ResponseEntity(productService.getAll(), HttpStatus.OK);
         } catch (Exception e) {
             return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -36,7 +42,8 @@ public class ProductController {
 
     @Operation(
             summary = "Search product by id",
-            description = "Search a product with an productId, it requires an auth token to perform operation"
+            description = "Search a product with an productId, it requires an auth token to perform operation",
+            security = { @SecurityRequirement(name = "bearer-key") }
     )
     @GetMapping("{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable int productId) {
@@ -51,7 +58,8 @@ public class ProductController {
 
     @Operation(
             summary = "Filter products by category and more...",
-            description = "Filter products by category and more, it requires an auth token to perform operation"
+            description = "Filter products by category and more, it requires an auth token to perform operation",
+            security = { @SecurityRequirement(name = "bearer-key") }
     )
     @GetMapping("filter")
     public ResponseEntity<List<Product>> getAllAndFilter(@RequestParam Optional<Integer> categoryId) {
@@ -70,7 +78,8 @@ public class ProductController {
 
     @Operation(
             summary = "Create a new product",
-            description = "Create a new product, it requires an auth token and ADMIN role to perform operation"
+            description = "Create a new product, it requires an auth token and ADMIN role to perform operation",
+            security = { @SecurityRequirement(name = "bearer-key") }
     )
     @PostMapping("")
     public ResponseEntity<Product> save(@RequestBody Product product) {
@@ -83,7 +92,8 @@ public class ProductController {
 
     @Operation(
             summary = "Delete product",
-            description = "Create a new product, it requires an auth token and ADMIN role to perform operation"
+            description = "Create a new product, it requires an auth token and ADMIN role to perform operation",
+            security = { @SecurityRequirement(name = "bearer-key") }
     )
     @DeleteMapping("/{productId}")
     public ResponseEntity<Boolean> delete(@PathVariable int productId) {

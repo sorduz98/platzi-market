@@ -1,15 +1,19 @@
 package com.platzi.market.configuration;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SwaggerConfig {
+    public static final String key = "";
+
     @Bean
     public OpenAPI springShopOpenAPI() {
         Info swaggerInfo = new Info()
@@ -22,9 +26,19 @@ public class SwaggerConfig {
                 .description("Platzi Market Wiki Documentation")
                 .url("https://www.google.com/");
 
+        Components bearedTokenSchema = new Components()
+                .addSecuritySchemes(
+                        "bearer-key",
+                        new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")
+                );
+
         return new OpenAPI()
                 .info(swaggerInfo)
-                .externalDocs(swaggerExternalDocs);
+                .externalDocs(swaggerExternalDocs)
+                .components(bearedTokenSchema);
     }
 
     @Bean
@@ -40,6 +54,14 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("Products")
                 .pathsToMatch("/products/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi authApi() {
+        return GroupedOpenApi.builder()
+                .group("Auth")
+                .pathsToMatch("/auth/**")
                 .build();
     }
 }
